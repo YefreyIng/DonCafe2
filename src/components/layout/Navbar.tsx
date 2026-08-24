@@ -6,6 +6,7 @@ import { useCart } from "../../context/CartContext";
 
 export default function Navbar() {
 	const [scrolled, setScrolled] = useState(false);
+	const [menuOpen, setMenuOpen] = useState(false);
 	const { itemCount, openCart } = useCart();
 
 	useEffect(() => {
@@ -17,6 +18,15 @@ export default function Navbar() {
 
 		return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
+
+	useEffect(() => {
+		if (!menuOpen) return;
+		const handleKeyDown = (event: KeyboardEvent) => {
+			if (event.key === "Escape") setMenuOpen(false);
+		};
+		document.addEventListener("keydown", handleKeyDown);
+		return () => document.removeEventListener("keydown", handleKeyDown);
+	}, [menuOpen]);
 
 	return (
 		<header
@@ -55,10 +65,39 @@ export default function Navbar() {
 					</button>
 				</div>
 
-				<button aria-label="Abrir menú" className="lg:hidden">
+				<button
+					type="button"
+					aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
+					aria-expanded={menuOpen}
+					onClick={() => setMenuOpen((open) => !open)}
+					className="lg:hidden text-white transition-colors hover:text-[#C89A3C]"
+				>
 					<Menu />
 				</button>
 			</div>
+
+			{menuOpen && (
+				<div className="border-t border-white/10 bg-[#171512]/95 px-4 pb-5 pt-3 backdrop-blur-md lg:hidden">
+					<nav className="mx-auto grid w-full max-w-[90rem] gap-1 text-sm text-white">
+						{[
+							["#inicio", "Inicio"],
+							["#historia", "Historia"],
+							["#productos", "Productos"],
+						].map(([href, label]) => (
+							<a key={href} href={href} onClick={() => setMenuOpen(false)} className="rounded-md px-3 py-3 transition-colors hover:bg-white/10 hover:text-[#C89A3C]">
+								{label}
+							</a>
+						))}
+						<Link to="/admin" onClick={() => setMenuOpen(false)} className="rounded-md px-3 py-3 transition-colors hover:bg-white/10 hover:text-[#C89A3C]">
+							Administración
+						</Link>
+						<button type="button" onClick={() => { setMenuOpen(false); openCart(); }} className="flex items-center gap-2 rounded-md px-3 py-3 text-left transition-colors hover:bg-white/10 hover:text-[#C89A3C]">
+							<ShoppingCart size={17} />
+							Carrito {itemCount > 0 && `(${itemCount})`}
+						</button>
+					</nav>
+				</div>
+			)}
 		</header>
 	);
 }
