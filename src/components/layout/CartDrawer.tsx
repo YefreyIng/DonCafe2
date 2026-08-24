@@ -1,6 +1,7 @@
 import { Minus, Plus, ShoppingBag, Trash2, X } from "lucide-react";
 import { useEffect } from "react";
 import { formatCurrency, useCart } from "../../context/CartContext";
+import { useNavigate } from "react-router-dom";
 
 export default function CartDrawer() {
 	const {
@@ -13,6 +14,7 @@ export default function CartDrawer() {
 		decreaseItem,
 		removeItem,
 	} = useCart();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (!isOpen) return;
@@ -91,7 +93,7 @@ export default function CartDrawer() {
 							</div>
 							<div className="my-4 border-t border-white/10" />
 							<div className="flex items-center justify-between"><span className="font-serif text-lg">Total</span><strong className="text-lg text-[#C89A3C]">{formatCurrency(subtotal)}</strong></div>
-							<button className="mt-5 flex min-h-12 w-full items-center justify-center rounded-xl bg-[#5C8A3D] text-xs font-bold uppercase tracking-[0.08em] text-white transition-colors hover:bg-[#6d9e49]">Finalizar compra <span className="ml-2">-&gt;</span></button>
+							<button onClick={() => { closeCart(); navigate("/checkout"); }} className="mt-5 flex min-h-12 w-full items-center justify-center rounded-xl bg-[#5C8A3D] text-xs font-bold uppercase tracking-[0.08em] text-white transition-colors hover:bg-[#6d9e49]">Finalizar compra <span className="ml-2">-&gt;</span></button>
 							<button onClick={closeCart} className="mt-2 flex min-h-10 w-full items-center justify-center rounded-xl border border-white/10 text-[10px] font-bold uppercase tracking-[0.08em] text-[#d2d2d2] transition-colors hover:border-white/30 hover:text-white">Seguir comprando</button>
 							<p className="mt-3 text-center text-[9px] text-[#777]">Impuestos incluidos. Envío gratuito en pedidos sobre $150.000.</p>
 						</div>

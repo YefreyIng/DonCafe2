@@ -1,6 +1,7 @@
-import { ShoppingCart, Menu } from "lucide-react";
+import { ShoppingCart, Menu, ShieldCheck } from "lucide-react";
 import { useEffect, useState } from "react";
 import clsx from "clsx";
+import { Link } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 
 export default function Navbar() {
@@ -40,6 +41,14 @@ export default function Navbar() {
 				</nav>
 
 				<div className="hidden items-center gap-4 lg:flex">
+					<Link
+						to="/admin"
+						aria-label="Abrir acceso de administración"
+						className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.08em] text-white/70 transition-colors hover:text-[#C89A3C]"
+					>
+						<ShieldCheck size={15} />
+						Admin
+					</Link>
 					<button aria-label="Abrir carrito" onClick={openCart} className="relative text-white transition-colors hover:text-[#C89A3C]">
 						<ShoppingCart />
 						{itemCount > 0 && <span key={itemCount} className="absolute -right-2 -top-2 flex h-4 min-w-4 animate-bounce items-center justify-center rounded-full bg-[#C89A3C] px-1 text-[9px] font-bold text-black">{itemCount}</span>}

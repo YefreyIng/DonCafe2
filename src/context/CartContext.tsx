@@ -21,6 +21,7 @@ interface CartContextValue {
 	increaseItem: (id: string) => void;
 	decreaseItem: (id: string) => void;
 	removeItem: (id: string) => void;
+	clearCart: () => void;
 	openCart: () => void;
 	closeCart: () => void;
 }
@@ -69,6 +70,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 					)
 				),
 			removeItem: (id) => setItems((currentItems) => currentItems.filter((item) => item.id !== id)),
+			clearCart: () => setItems([]),
 			openCart: () => setIsOpen(true),
 			closeCart: () => setIsOpen(false),
 		};
