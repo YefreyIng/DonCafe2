@@ -36,6 +36,11 @@ export default function Hero() {
 
 			<button
 				aria-label="Abrir chat"
+				type="button"
+				onClick={() => {
+					const message = encodeURIComponent("Hola, quiero información sobre los productos de DonCafé.");
+					window.open(`https://wa.me/573125110135?text=${message}`, "_blank", "noopener,noreferrer");
+				}}
 				className="fixed bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-lime-300 text-black shadow-[0_0_24px_rgba(190,242,100,0.4)] transition-transform hover:scale-105"
 			>
 				<MessageSquare size={21} />
