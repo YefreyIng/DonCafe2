@@ -1,0 +1,39 @@
+@import "tailwindcss";
+  
+:root {
+  --background: #0B0B0B;
+  --surface: #171717;
+  --card: #222222;
+
+  --primary: #5C8A3D;
+  --primary-hover: #4C7331;
+
+  --gold: #B8892D;
+
+  --text: #FFFFFF;
+  --text-secondary: #CFCFCF;
+
+  --border: #303030;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--background);
+  color: var(--text);
+  font-family: "Manrope", sans-serif;
+  min-width: 0;
+  overflow-x: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
